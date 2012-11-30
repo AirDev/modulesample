@@ -11,12 +11,16 @@
     <LinearLayout android:id="@+id/callee_buttons" android:layout_alignParentRight="true" 
     android:layout_width="wrap_content" android:layout_height="fill_parent"
     android:layout_centerVertical="true">
+<!--
       <ImageButton android:id="@+id/addVideo" android:src="@drawable/conf_video"
           android:visibility="gone"
           android:layout_width="wrap_content" android:layout_height="wrap_content" />
+-->
+<!--
       <ImageButton android:id="@+id/merge_to_conference" android:src="@drawable/conf_merge"
           android:visibility="gone"
           android:layout_width="wrap_content" android:layout_height="wrap_content" />
+-->
     </LinearLayout>
 
 	<LinearLayout android:id="@+id/callee_statuses" android:layout_toLeftOf="@id/callee_buttons"

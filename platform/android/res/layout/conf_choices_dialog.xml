@@ -20,16 +20,20 @@
 	
 	<LinearLayout android:id="@+id/transfer_new"
 	android:layout_width="fill_parent" android:layout_height="wrap_content">
+<!--
 	<ImageButton android:src="@drawable/conf_transfer" android:clickable="false" 
 		android:layout_width="wrap_content" android:layout_height="wrap_content" />
+-->
 	<TextView android:text="@string/conf_choice_transfer_new" android:layout_gravity="center_vertical"
 		android:layout_width="wrap_content" android:layout_height="wrap_content" />
 	</LinearLayout>
 
 	<LinearLayout android:id="@+id/transfer_existing"
 	android:layout_width="fill_parent" android:layout_height="wrap_content">
+<!--
 	<ImageButton android:src="@drawable/conf_transfer" android:clickable="false"
 		android:layout_width="wrap_content" android:layout_height="wrap_content" />
+-->
 	<TextView android:text="@string/conf_choice_transfer_existing" android:layout_gravity="center_vertical"
 		android:layout_width="wrap_content" android:layout_height="wrap_content" />
 	</LinearLayout>
