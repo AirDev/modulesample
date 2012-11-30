@@ -104,6 +104,8 @@ public class ALModuleProxy extends KrollProxy implements LinphoneOnCallStateChan
 	@Kroll.method
 	public void regist()
 	{
+		Log.d("ALModuleProxy", "regits!!!");
+		
 		String username = (String) getProperty("username");
 		String password = (String) getProperty("password");
 		String server   = (String) getProperty("server");
@@ -115,62 +117,59 @@ public class ALModuleProxy extends KrollProxy implements LinphoneOnCallStateChan
 	{	
 		LinphonePreferenceManager.getInstance(context);
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-		final String PREF_FIRST_LAUNCH = "pref_first_launch";
-		{
-			SharedPreferences.Editor editor = pref.edit();
-			
-			String prefUser = pref.getString(
-								context.getString(R.get("string", "pref_username_key")),
-								"");
-			
-			editor.putString(context.getString(R.get("string", "pref_username_key")), username);
-			editor.putString(context.getString(R.get("string", "pref_domain_key")), server + ":5900");
-			editor.putString(context.getString(R.get("string", "pref_passwd_key")), password);
+//		final String PREF_FIRST_LAUNCH = "pref_first_launch";
+		SharedPreferences.Editor editor = pref.edit();
+		
+		String prefUser = pref.getString(
+							context.getString(R.get("string", "pref_username_key")),
+							"");
+		
+		editor.putString(context.getString(R.get("string", "pref_username_key")), username);
+		editor.putString(context.getString(R.get("string", "pref_domain_key")), server + ":5900");
+		editor.putString(context.getString(R.get("string", "pref_passwd_key")), password);
 
-			if(prefUser == "")
-			{
-				//audio codec setting
-				editor.putBoolean(context.getString(R.get("string", "pref_codec_amr_key")), false);
-				editor.putBoolean(context.getString(R.get("string", "pref_codec_amrwb_key")), false);
-				editor.putBoolean(context.getString(R.get("string", "pref_codec_g722_key")), false);
-				editor.putBoolean(context.getString(R.get("string", "pref_codec_g729_key")), false);
-				editor.putBoolean(context.getString(R.get("string", "pref_codec_gsm_key")), false);
-				editor.putBoolean(context.getString(R.get("string", "pref_codec_ilbc_key")), true);
-				editor.putBoolean(context.getString(R.get("string", "pref_codec_pcma_key")), true);
-				editor.putBoolean(context.getString(R.get("string", "pref_codec_pcmu_key")), true);
-				editor.putBoolean(context.getString(R.get("string", "pref_codec_silk12_key")), false);
-				editor.putBoolean(context.getString(R.get("string", "pref_codec_silk16_key")), false);
-				editor.putBoolean(context.getString(R.get("string", "pref_codec_silk24_key")), false);
-			
-				editor.putBoolean(context.getString(R.get("string", "pref_codec_silk8_key")), false);
-				
-				//video codec setting
-				editor.putBoolean(context.getString(R.get("string", "pref_video_codec_h263_key")), false);
-				editor.putBoolean(context.getString(R.get("string", "pref_video_codec_vp8_key")), true);
-				editor.putBoolean(context.getString(R.get("string", "pref_video_codec_mpeg4_key")), true);
-				editor.putBoolean(context.getString(R.get("string", "pref_video_codec_h264_key")), true);
-				//echo canceler
-				boolean ec = false;
-				editor.putBoolean(context.getString(R.get("string", "pref_echo_cancellation_key")), ec);
-				boolean el = false;
-				editor.putBoolean(context.getString(R.get("string", "pref_echo_limiter_key")), el);
-			}
-			
+//			if(prefUser == "")
+		//audio codec setting
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_amr_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_amrwb_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_g722_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_g729_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_gsm_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_ilbc_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_pcma_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_pcmu_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_silk12_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_silk16_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_silk24_key")), false);
+	
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_silk8_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_speex8_key")), true);
+		
+		//video codec setting
+		editor.putBoolean(context.getString(R.get("string", "pref_video_codec_h263_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_video_codec_vp8_key")), true);
+		editor.putBoolean(context.getString(R.get("string", "pref_video_codec_mpeg4_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_video_codec_h264_key")), false);
+		//echo canceler
+//				boolean ec = false;
+//				editor.putBoolean(context.getString(R.get("string", "pref_echo_cancellation_key")), ec);
+//				boolean el = false;
+//				editor.putBoolean(context.getString(R.get("string", "pref_echo_limiter_key")), el);
+		
 
-			editor.putBoolean(PREF_FIRST_LAUNCH, false);
-			editor.putInt(context.getString(R.get("string", "pref_extra_accounts")), 1);
-			
-			editor.putString(context.getString(R.get("string", "pref_proxy_key")), null);
-			
-			editor.putBoolean(context.getString(R.get("string", "pref_enable_outbound_proxy_key")), false);
-			editor.putBoolean(context.getString(R.get("string", "pref_disable_account_key")), true);
-			editor.putInt(context.getString(R.get("string", "pref_default_account")), 0);
+		editor.putBoolean(PREF_FIRST_LAUNCH, false);
+		editor.putInt(context.getString(R.get("string", "pref_extra_accounts")), 1);
+		
+		editor.putString(context.getString(R.get("string", "pref_proxy_key")), null);
+		
+		editor.putBoolean(context.getString(R.get("string", "pref_enable_outbound_proxy_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_disable_account_key")), true);
+		editor.putInt(context.getString(R.get("string", "pref_default_account")), 0);
 
-			//121029suzuki 
-			editor.putBoolean(context.getString(R.get("string", "pref_transport_udp_key")), true);
-			
-			editor.commit();
-		}
+		//121029suzuki 
+		editor.putBoolean(context.getString(R.get("string", "pref_transport_udp_key")), true);
+		
+		editor.commit();
 		
 		//121025suzuki stop service
 //		if(LinphoneService.isReady())

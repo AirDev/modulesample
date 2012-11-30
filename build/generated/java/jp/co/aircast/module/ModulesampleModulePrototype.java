@@ -142,7 +142,7 @@ public class ModulesampleModulePrototype extends KrollModulePrototype
 	protected int findPrototypeId(String s)
 	{
 		int id = 0;
-// #generated# Last update: 2012-11-30 18:44:19 JST
+// #generated# Last update: 2012-11-30 20:51:11 JST
         L0: { id = 0; String X = null; int c;
             L: switch (s.length()) {
             case 11: X="constructor";id=Id_constructor; break L;
@@ -261,7 +261,7 @@ public class ModulesampleModulePrototype extends KrollModulePrototype
 	protected int findInstanceIdInfo(String s)
 	{
 		int id = 0;
-// #generated# Last update: 2012-11-30 18:44:19 JST
+// #generated# Last update: 2012-11-30 20:51:11 JST
         L0: { id = 0; String X = null;
             int s_length = s.length();
             if (s_length==8) { X="ALModule";id=Id_ALModule; }

@@ -620,7 +620,7 @@ public class LinphonePreferencesActivity extends PreferenceActivity implements E
 		
 		// No video
 		if (!Version.isVideoCapable()) {
-		//	uncheckAndDisableCheckbox(R.get("string", "pref_video_enable_key"));
+			uncheckAndDisableCheckbox(R.get("string", "pref_video_enable_key"));
 		} else if (!AndroidCameraConfiguration.hasFrontCamera()) {
 			uncheckDisableAndHideCheckbox(R.get("string", "pref_video_use_front_camera_key"));
 		}
@@ -635,8 +635,6 @@ public class LinphonePreferencesActivity extends PreferenceActivity implements E
 		}
 
 
-		detectVideoCodec(R.get("string", "pref_video_codec_vp8_key"), "VP8");
-/*//ike
 		detectVideoCodec(R.get("string", "pref_video_codec_h264_key"), "H264");
 		if (!Version.hasNeon())
 		{
@@ -644,7 +642,7 @@ public class LinphonePreferencesActivity extends PreferenceActivity implements E
 			findPreference(R.get("string", "pref_video_codec_h264_key")).setEnabled(false);
 			findPreference(R.get("string", "pref_video_codec_h264_key")).setDefaultValue(false);
 		}
-*/
+		
 		addEchoPrefsListener();
 		
 		if (Hacks.needSoftvolume()) checkAndDisableCheckbox(R.get("string", "pref_audio_soft_volume_key"));
@@ -659,8 +657,8 @@ public class LinphonePreferencesActivity extends PreferenceActivity implements E
 			videoSettings.removeAll();
 			videoSettings.setLayoutResource(R.get("layout", "hidden"));
 			
-//			CheckBoxPreference enableVideo = (CheckBoxPreference) findPreference(R.get("string", "pref_video_enable_key"));
-//			enableVideo.setLayoutResource(R.get("layout", "hidden"));
+			CheckBoxPreference enableVideo = (CheckBoxPreference) findPreference(R.get("string", "pref_video_enable_key"));
+			enableVideo.setLayoutResource(R.get("layout", "hidden"));
 		}
 	}
 
@@ -857,7 +855,7 @@ public class LinphonePreferencesActivity extends PreferenceActivity implements E
 				return;
 			}
 
-//			ALModuleProxy.instance().showPreferenceErrorDialog(e.getMessage());
+//			LinphoneActivity.instance().showPreferenceErrorDialog(e.getMessage());
 		}
 	}
 
