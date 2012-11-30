@@ -104,8 +104,6 @@ public class ALModuleProxy extends KrollProxy implements LinphoneOnCallStateChan
 	@Kroll.method
 	public void regist()
 	{
-		Log.d("ALModuleProxy", "regits!!!");
-		
 		String username = (String) getProperty("username");
 		String password = (String) getProperty("password");
 		String server   = (String) getProperty("server");
