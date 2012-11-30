@@ -1,0 +1,22 @@
+%define lookup-function-name lookupGeneratedInit
+%define class-name ModulesampleBindings
+%{
+
+#include <string.h>
+#include <v8.h>
+#include <KrollBindings.h>
+
+#include "jp.co.aircast.module.ModulesampleModule.h"
+#include "jp.co.aircast.module.MakeIntentProxy.h"
+#include "jp.co.aircast.module.ALModuleProxy.h"
+#include "jp.co.aircast.module.VideoViewProxy.h"
+
+
+%}
+struct titanium::bindings::BindEntry;
+%%
+jp.co.aircast.module.ModulesampleModule, ::jp::co::aircast::module::ModulesampleModule::bindProxy, ::jp::co::aircast::module::ModulesampleModule::dispose
+jp.co.aircast.module.MakeIntentProxy, ::jp::co::aircast::module::modulesample::MakeIntentProxy::bindProxy, ::jp::co::aircast::module::modulesample::MakeIntentProxy::dispose
+jp.co.aircast.module.ALModuleProxy, ::jp::co::aircast::module::modulesample::ALModuleProxy::bindProxy, ::jp::co::aircast::module::modulesample::ALModuleProxy::dispose
+jp.co.aircast.module.VideoViewProxy, ::jp::co::aircast::module::modulesample::VideoViewProxy::bindProxy, ::jp::co::aircast::module::modulesample::VideoViewProxy::dispose
+%%
