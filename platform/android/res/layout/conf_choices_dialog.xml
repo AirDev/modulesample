@@ -34,6 +34,7 @@
 		android:layout_width="wrap_content" android:layout_height="wrap_content" />
 	</LinearLayout>
 
+<!--
 	<LinearLayout android:id="@+id/merge_to_conference"
 	android:layout_width="fill_parent" android:layout_height="wrap_content">
 	<ImageButton android:src="@drawable/conf_merge" android:clickable="false"
@@ -41,7 +42,8 @@
 	<TextView android:text="@string/conf_choice_merge_to_conference" android:layout_gravity="center_vertical"
 		android:layout_width="wrap_content" android:layout_height="wrap_content" />
 	</LinearLayout>
-
+-->
+<!--
 	<LinearLayout android:id="@+id/terminate_call"
 	android:layout_width="fill_parent" android:layout_height="wrap_content">
 	<ImageButton android:src="@drawable/conf_terminate" android:clickable="false"
@@ -49,6 +51,7 @@
 	<TextView android:text="@string/conf_choice_terminate" android:layout_gravity="center_vertical"
 		android:layout_width="wrap_content" android:layout_height="wrap_content" />
 	</LinearLayout>
+-->
 
 </LinearLayout>
 </ScrollView>
