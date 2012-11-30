@@ -26,11 +26,8 @@ import jp.co.aircast.module.R;
 import org.linphone.LinphoneSimpleListener.LinphoneOnCallStateChangedListener;
 import org.linphone.core.LinphoneAddress;
 import org.linphone.core.LinphoneCall;
-import org.linphone.core.LinphoneCore;
-import org.linphone.core.Log;
 import org.linphone.core.LinphoneCall.State;
-import org.linphone.ui.SlidingTab;
-import org.linphone.ui.SlidingTab.OnTriggerListener;
+import org.linphone.core.Log;
 
 import android.app.Activity;
 import android.app.AlertDialog;

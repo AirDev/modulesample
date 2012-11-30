@@ -164,7 +164,7 @@ public class MakeIntentProxyPrototype extends KrollProxyPrototype
 	protected int findPrototypeId(String s)
 	{
 		int id = 0;
-// #generated# Last update: 2012-11-30 14:17:21 JST
+// #generated# Last update: 2012-11-30 17:06:08 JST
         L0: { id = 0; String X = null; int c;
             int s_length = s.length();
             if (s_length==5) { X="start";id=Id_start; }
