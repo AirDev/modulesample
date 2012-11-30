@@ -9,7 +9,6 @@
 package jp.co.aircast.module;
 
 import org.appcelerator.kroll.KrollDict;
-import org.appcelerator.kroll.KrollEventCallback;
 import org.appcelerator.kroll.KrollFunction;
 import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
@@ -22,46 +21,27 @@ import org.linphone.ConferenceDetailsActivity;
 import org.linphone.FirstLoginActivity;
 import org.linphone.IncallActivity;
 import org.linphone.IncomingCallActivity;
-import org.linphone.LinphoneActivity;
-import org.linphone.LinphoneLauncherActivity;
 import org.linphone.LinphoneManager;
 import org.linphone.LinphonePreferenceManager;
-import org.linphone.VideoCallActivity;
-import org.linphone.LinphoneActivity.LocalOrientationEventListener;
-import org.linphone.LinphoneManager.AddressType;
 import org.linphone.LinphonePreferencesActivity;
 import org.linphone.LinphoneService;
 import org.linphone.LinphoneSimpleListener.LinphoneOnCallStateChangedListener;
-import org.linphone.LinphoneSimpleListener.LinphoneOnTextReceivedListener;
-import org.linphone.core.LinphoneAddress;
+import org.linphone.VideoCallActivity;
 import org.linphone.core.LinphoneCall;
 import org.linphone.core.LinphoneCall.State;
-import org.linphone.core.LinphoneChatRoom;
 import org.linphone.core.LinphoneCore;
-import org.linphone.core.LinphoneCore.EcCalibratorStatus;
-import org.linphone.core.LinphoneCore.GlobalState;
 import org.linphone.core.LinphoneCore.RegistrationState;
-import org.linphone.core.LinphoneCoreListener;
-import org.linphone.core.LinphoneFriend;
-import org.linphone.core.LinphoneProxyConfig;
 import org.linphone.mediastream.Version;
-import org.linphone.ui.AddressText;
-//import org.linphone.R;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.drm.DrmStore.RightsStatus;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.view.OrientationEventListener;
+//import org.linphone.R;
 
 
 // This proxy can be created by calling Modulesample.createExample({message: "hello world"})
@@ -79,6 +59,7 @@ public class ALModuleProxy extends KrollProxy implements LinphoneOnCallStateChan
 //	public static String ACT_NAME = "Al_devActivity";
 	private static Handler mHandler = new Handler();
 	private static ALModuleProxy instance;
+	public static String PREF_FIRST_LAUNCH = "pref_first_launch";
  
 	public static int _STOP     = -1;
 	public static int _NOMAL    = 0;

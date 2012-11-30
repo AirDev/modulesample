@@ -33,7 +33,6 @@ import org.linphone.core.LinphoneCall;
 import org.linphone.core.LinphoneCall.State;
 import org.linphone.core.LinphoneCore;
 import org.linphone.core.Log;
-import org.linphone.ui.ToggleImageButton;
 
 import android.app.ListActivity;
 import android.net.Uri;
@@ -88,9 +87,9 @@ public abstract class AbstractCalleesActivity extends ListActivity implements Li
 		View speaker =  findViewById(R.get("id", "toggleSpeaker"));
 		speaker.setOnClickListener(this);
 		mSpeakerButton = (Checkable) speaker;
-		if (LinphoneManager.getInstance().isSpeakerOn()) {
-			((ToggleImageButton) speaker).setChecked(true);
-		}
+//		if (LinphoneManager.getInstance().isSpeakerOn()) {
+//			((ToggleImageButton) speaker).setChecked(true);
+//		}
 		super.onCreate(savedInstanceState);
 	}
 
