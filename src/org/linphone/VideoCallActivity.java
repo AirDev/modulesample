@@ -18,20 +18,16 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 package org.linphone;
 
-import jp.co.aircast.module.ALModuleProxy;
 import jp.co.aircast.module.R;
 
 import org.linphone.LinphoneSimpleListener.LinphoneOnCallStateChangedListener;
 import org.linphone.compatibility.Compatibility;
 import org.linphone.core.LinphoneCall;
 import org.linphone.core.LinphoneCall.State;
-import org.linphone.core.LinphoneCallParams;
 import org.linphone.core.Log;
 import org.linphone.mediastream.Version;
 import org.linphone.mediastream.video.AndroidVideoWindowImpl;
 import org.linphone.mediastream.video.capture.hwconf.AndroidCameraConfiguration;
-import org.linphone.ui.Numpad;
-import org.linphone.ui.ToggleImageButton;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -43,15 +39,11 @@ import android.content.res.Resources;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -61,7 +53,6 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.Checkable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -736,17 +727,17 @@ public class VideoCallActivity extends Activity implements
 
 	protected Dialog onCreateDialog(final int id) {
 		switch (id) {
-		case numpadDialogId:
-			Numpad numpad = new Numpad(this, true);
-			return new AlertDialog.Builder(this)
-					.setView(numpad)
-					.setPositiveButton(R.get("string", "close_button_text"),
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int whichButton) {
-									dismissDialog(id);
-								}
-							}).create();
+//		case numpadDialogId:
+//			Numpad numpad = new Numpad(this, true);
+//			return new AlertDialog.Builder(this)
+//					.setView(numpad)
+//					.setPositiveButton(R.get("string", "close_button_text"),
+//							new DialogInterface.OnClickListener() {
+//								public void onClick(DialogInterface dialog,
+//										int whichButton) {
+//									dismissDialog(id);
+//								}
+//							}).create();
 		default:
 			throw new IllegalArgumentException("unkown dialog id " + id);
 		}

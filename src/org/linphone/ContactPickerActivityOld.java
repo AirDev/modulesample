@@ -68,11 +68,11 @@ public class ContactPickerActivityOld extends Activity {
                     if (!ContactHelper.testPhotoUri(getContentResolver(), pictureUri, android.provider.Contacts.Photos.DATA)) {
                     	pictureUri = null;
                     }
-                    ((ContactPicked) getParent()).setAddressAndGoToDialer(lPhoneNo, lName, pictureUri);
+//                    ((ContactPicked) getParent()).setAddressAndGoToDialer(lPhoneNo, lName, pictureUri);
                 }
             }
             	
-            ((ContactPicked) getParent()).goToDialer();
+//            ((ContactPicked) getParent()).goToDialer();
             }
         }
 

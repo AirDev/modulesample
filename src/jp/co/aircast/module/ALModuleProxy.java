@@ -9,7 +9,6 @@
 package jp.co.aircast.module;
 
 import org.appcelerator.kroll.KrollDict;
-import org.appcelerator.kroll.KrollEventCallback;
 import org.appcelerator.kroll.KrollFunction;
 import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
@@ -22,46 +21,27 @@ import org.linphone.ConferenceDetailsActivity;
 import org.linphone.FirstLoginActivity;
 import org.linphone.IncallActivity;
 import org.linphone.IncomingCallActivity;
-import org.linphone.LinphoneActivity;
-import org.linphone.LinphoneLauncherActivity;
 import org.linphone.LinphoneManager;
 import org.linphone.LinphonePreferenceManager;
-import org.linphone.VideoCallActivity;
-import org.linphone.LinphoneActivity.LocalOrientationEventListener;
-import org.linphone.LinphoneManager.AddressType;
 import org.linphone.LinphonePreferencesActivity;
 import org.linphone.LinphoneService;
 import org.linphone.LinphoneSimpleListener.LinphoneOnCallStateChangedListener;
-import org.linphone.LinphoneSimpleListener.LinphoneOnTextReceivedListener;
-import org.linphone.core.LinphoneAddress;
+import org.linphone.VideoCallActivity;
 import org.linphone.core.LinphoneCall;
 import org.linphone.core.LinphoneCall.State;
-import org.linphone.core.LinphoneChatRoom;
 import org.linphone.core.LinphoneCore;
-import org.linphone.core.LinphoneCore.EcCalibratorStatus;
-import org.linphone.core.LinphoneCore.GlobalState;
 import org.linphone.core.LinphoneCore.RegistrationState;
-import org.linphone.core.LinphoneCoreListener;
-import org.linphone.core.LinphoneFriend;
-import org.linphone.core.LinphoneProxyConfig;
 import org.linphone.mediastream.Version;
-import org.linphone.ui.AddressText;
-//import org.linphone.R;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.drm.DrmStore.RightsStatus;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.view.OrientationEventListener;
+//import org.linphone.R;
 
 
 // This proxy can be created by calling Modulesample.createExample({message: "hello world"})
@@ -79,6 +59,7 @@ public class ALModuleProxy extends KrollProxy implements LinphoneOnCallStateChan
 //	public static String ACT_NAME = "Al_devActivity";
 	private static Handler mHandler = new Handler();
 	private static ALModuleProxy instance;
+	public static String PREF_FIRST_LAUNCH = "pref_first_launch";
  
 	public static int _STOP     = -1;
 	public static int _NOMAL    = 0;
@@ -134,62 +115,59 @@ public class ALModuleProxy extends KrollProxy implements LinphoneOnCallStateChan
 	{	
 		LinphonePreferenceManager.getInstance(context);
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-		final String PREF_FIRST_LAUNCH = "pref_first_launch";
-		{
-			SharedPreferences.Editor editor = pref.edit();
-			
-			String prefUser = pref.getString(
-								context.getString(R.get("string", "pref_username_key")),
-								"");
-			
-			editor.putString(context.getString(R.get("string", "pref_username_key")), username);
-			editor.putString(context.getString(R.get("string", "pref_domain_key")), server + ":5900");
-			editor.putString(context.getString(R.get("string", "pref_passwd_key")), password);
+//		final String PREF_FIRST_LAUNCH = "pref_first_launch";
+		SharedPreferences.Editor editor = pref.edit();
+		
+		String prefUser = pref.getString(
+							context.getString(R.get("string", "pref_username_key")),
+							"");
+		
+		editor.putString(context.getString(R.get("string", "pref_username_key")), username);
+		editor.putString(context.getString(R.get("string", "pref_domain_key")), server + ":5900");
+		editor.putString(context.getString(R.get("string", "pref_passwd_key")), password);
 
-			if(prefUser == "")
-			{
-				//audio codec setting
-				editor.putBoolean(context.getString(R.get("string", "pref_codec_amr_key")), false);
-				editor.putBoolean(context.getString(R.get("string", "pref_codec_amrwb_key")), false);
-				editor.putBoolean(context.getString(R.get("string", "pref_codec_g722_key")), false);
-				editor.putBoolean(context.getString(R.get("string", "pref_codec_g729_key")), false);
-				editor.putBoolean(context.getString(R.get("string", "pref_codec_gsm_key")), false);
-				editor.putBoolean(context.getString(R.get("string", "pref_codec_ilbc_key")), true);
-				editor.putBoolean(context.getString(R.get("string", "pref_codec_pcma_key")), true);
-				editor.putBoolean(context.getString(R.get("string", "pref_codec_pcmu_key")), true);
-				editor.putBoolean(context.getString(R.get("string", "pref_codec_silk12_key")), false);
-				editor.putBoolean(context.getString(R.get("string", "pref_codec_silk16_key")), false);
-				editor.putBoolean(context.getString(R.get("string", "pref_codec_silk24_key")), false);
-			
-				editor.putBoolean(context.getString(R.get("string", "pref_codec_silk8_key")), false);
-				
-				//video codec setting
-				editor.putBoolean(context.getString(R.get("string", "pref_video_codec_h263_key")), false);
-				editor.putBoolean(context.getString(R.get("string", "pref_video_codec_vp8_key")), true);
-				editor.putBoolean(context.getString(R.get("string", "pref_video_codec_mpeg4_key")), true);
-				editor.putBoolean(context.getString(R.get("string", "pref_video_codec_h264_key")), true);
-				//echo canceler
-				boolean ec = false;
-				editor.putBoolean(context.getString(R.get("string", "pref_echo_cancellation_key")), ec);
-				boolean el = false;
-				editor.putBoolean(context.getString(R.get("string", "pref_echo_limiter_key")), el);
-			}
-			
+//			if(prefUser == "")
+		//audio codec setting
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_amr_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_amrwb_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_g722_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_g729_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_gsm_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_ilbc_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_pcma_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_pcmu_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_silk12_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_silk16_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_silk24_key")), false);
+	
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_silk8_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_codec_speex8_key")), true);
+		
+		//video codec setting
+		editor.putBoolean(context.getString(R.get("string", "pref_video_codec_h263_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_video_codec_vp8_key")), true);
+		editor.putBoolean(context.getString(R.get("string", "pref_video_codec_mpeg4_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_video_codec_h264_key")), false);
+		//echo canceler
+//				boolean ec = false;
+//				editor.putBoolean(context.getString(R.get("string", "pref_echo_cancellation_key")), ec);
+//				boolean el = false;
+//				editor.putBoolean(context.getString(R.get("string", "pref_echo_limiter_key")), el);
+		
 
-			editor.putBoolean(PREF_FIRST_LAUNCH, false);
-			editor.putInt(context.getString(R.get("string", "pref_extra_accounts")), 1);
-			
-			editor.putString(context.getString(R.get("string", "pref_proxy_key")), null);
-			
-			editor.putBoolean(context.getString(R.get("string", "pref_enable_outbound_proxy_key")), false);
-			editor.putBoolean(context.getString(R.get("string", "pref_disable_account_key")), true);
-			editor.putInt(context.getString(R.get("string", "pref_default_account")), 0);
+		editor.putBoolean(PREF_FIRST_LAUNCH, false);
+		editor.putInt(context.getString(R.get("string", "pref_extra_accounts")), 1);
+		
+		editor.putString(context.getString(R.get("string", "pref_proxy_key")), null);
+		
+		editor.putBoolean(context.getString(R.get("string", "pref_enable_outbound_proxy_key")), false);
+		editor.putBoolean(context.getString(R.get("string", "pref_disable_account_key")), true);
+		editor.putInt(context.getString(R.get("string", "pref_default_account")), 0);
 
-			//121029suzuki 
-			editor.putBoolean(context.getString(R.get("string", "pref_transport_udp_key")), true);
-			
-			editor.commit();
-		}
+		//121029suzuki 
+		editor.putBoolean(context.getString(R.get("string", "pref_transport_udp_key")), true);
+		
+		editor.commit();
 		
 		//121025suzuki stop service
 //		if(LinphoneService.isReady())

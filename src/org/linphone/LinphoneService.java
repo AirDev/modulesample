@@ -423,9 +423,9 @@ public final class LinphoneService extends Service implements LinphoneServiceLis
 	}
 
 	
-	private static final LinphoneGuiListener guiListener() {
-		return DialerActivity.instance();
-	}
+//	private static final LinphoneGuiListener guiListener() {
+//		return DialerActivity.instance();
+//	}
 
 	private static final LinphoneOnCallStateChangedListener incallListener() {
 		return IncallActivity.instance();
@@ -436,11 +436,11 @@ public final class LinphoneService extends Service implements LinphoneServiceLis
 	
 
 	public void onDisplayStatus(final String message) {
-		mHandler.post(new Runnable() {
-			public void run() {
-				if (guiListener() != null) guiListener().onDisplayStatus(message);				
-			}
-		});
+//		mHandler.post(new Runnable() {
+//			public void run() {
+//				if (guiListener() != null) guiListener().onDisplayStatus(message);				
+//			}
+//		});
 	}
 
 	public void onGlobalStateChanged(final GlobalState state, final String message) {
@@ -450,12 +450,12 @@ public final class LinphoneService extends Service implements LinphoneServiceLis
 			// Slightly delay the propagation of the state change.
 			// This is to let the linphonecore finish to be created
 			// in the java part.
-			mHandler.postDelayed(new Runnable() {
-				public void run() {
-					if (guiListener() != null)
-						guiListener().onGlobalStateChangedToOn(message);				
-				}
-			}, 50);
+//			mHandler.postDelayed(new Runnable() {
+//				public void run() {
+//					if (guiListener() != null)
+//						guiListener().onGlobalStateChangedToOn(message);				
+//				}
+//			}, 50);
 		}
 	}
 
@@ -563,12 +563,12 @@ public final class LinphoneService extends Service implements LinphoneServiceLis
 		if ((state == State.CallEnd || state == State.Error) && LinphoneManager.getLc().getCallsNb() < 1) {
 			mWifiLock.release();
 		}
-		mHandler.post(new Runnable() {
-			public void run() {
-				if (guiListener() != null)
-					guiListener().onCallStateChanged(call, state, message);
-			}
-		});
+//		mHandler.post(new Runnable() {
+//			public void run() {
+//				if (guiListener() != null)
+//					guiListener().onCallStateChanged(call, state, message);
+//			}
+//		});
 	}
 
 
@@ -601,30 +601,30 @@ public final class LinphoneService extends Service implements LinphoneServiceLis
 	}
 
 	public void tryingNewOutgoingCallButAlreadyInCall() {
-		mHandler.post(new Runnable() {
-			public void run() {
-				if (guiListener() != null)
-					guiListener().onAlreadyInCall();			
-			}
-		});
+//		mHandler.post(new Runnable() {
+//			public void run() {
+//				if (guiListener() != null)
+//					guiListener().onAlreadyInCall();			
+//			}
+//		});
 	}
 
 	public void tryingNewOutgoingCallButCannotGetCallParameters() {
-		mHandler.post(new Runnable() {
-			public void run() {
-				if (guiListener() != null)
-					guiListener().onCannotGetCallParameters();			
-			}
-		});
+//		mHandler.post(new Runnable() {
+//			public void run() {
+//				if (guiListener() != null)
+//					guiListener().onCannotGetCallParameters();			
+//			}
+//		});
 	}
 
 	public void tryingNewOutgoingCallButWrongDestinationAddress() {
-		mHandler.post(new Runnable() {
-			public void run() {
-				if (guiListener() != null)
-					guiListener().onWrongDestinationAddress();			
-			}
-		});
+//		mHandler.post(new Runnable() {
+//			public void run() {
+//				if (guiListener() != null)
+//					guiListener().onWrongDestinationAddress();			
+//			}
+//		});
 	}
 
 	public void onCallEncryptionChanged(final LinphoneCall call, final boolean encrypted,

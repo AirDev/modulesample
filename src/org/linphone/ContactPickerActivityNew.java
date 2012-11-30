@@ -157,7 +157,7 @@ public class ContactPickerActivityNew extends AbstractContactPickerActivityNew {
 			}
 		}
 
-		((ContactPicked) getParent()).goToDialer();
+//		((ContactPicked) getParent()).goToDialer();
 	}
 
 

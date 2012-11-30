@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import jp.co.aircast.module.ALModuleProxy;
 import jp.co.aircast.module.R;
 
 import org.linphone.LinphoneManager.EcCalibrationListener;
@@ -619,12 +620,12 @@ public class LinphonePreferencesActivity extends PreferenceActivity implements E
 		
 		// No video
 		if (!Version.isVideoCapable()) {
-		//	uncheckAndDisableCheckbox(R.get("string", "pref_video_enable_key"));
+			uncheckAndDisableCheckbox(R.get("string", "pref_video_enable_key"));
 		} else if (!AndroidCameraConfiguration.hasFrontCamera()) {
 			uncheckDisableAndHideCheckbox(R.get("string", "pref_video_use_front_camera_key"));
 		}
 
-		if (prefs().getBoolean(LinphoneActivity.PREF_FIRST_LAUNCH,true)) {
+		if (prefs().getBoolean(ALModuleProxy.PREF_FIRST_LAUNCH,true)) {
 			doOnFirstLaunch();
 		}
 		if (Hacks.hasBuiltInEchoCanceller()) {
@@ -634,8 +635,6 @@ public class LinphonePreferencesActivity extends PreferenceActivity implements E
 		}
 
 
-		detectVideoCodec(R.get("string", "pref_video_codec_vp8_key"), "VP8");
-/*//ike
 		detectVideoCodec(R.get("string", "pref_video_codec_h264_key"), "H264");
 		if (!Version.hasNeon())
 		{
@@ -643,7 +642,7 @@ public class LinphonePreferencesActivity extends PreferenceActivity implements E
 			findPreference(R.get("string", "pref_video_codec_h264_key")).setEnabled(false);
 			findPreference(R.get("string", "pref_video_codec_h264_key")).setDefaultValue(false);
 		}
-*/
+		
 		addEchoPrefsListener();
 		
 		if (Hacks.needSoftvolume()) checkAndDisableCheckbox(R.get("string", "pref_audio_soft_volume_key"));
@@ -658,8 +657,8 @@ public class LinphonePreferencesActivity extends PreferenceActivity implements E
 			videoSettings.removeAll();
 			videoSettings.setLayoutResource(R.get("layout", "hidden"));
 			
-//			CheckBoxPreference enableVideo = (CheckBoxPreference) findPreference(R.get("string", "pref_video_enable_key"));
-//			enableVideo.setLayoutResource(R.get("layout", "hidden"));
+			CheckBoxPreference enableVideo = (CheckBoxPreference) findPreference(R.get("string", "pref_video_enable_key"));
+			enableVideo.setLayoutResource(R.get("layout", "hidden"));
 		}
 	}
 
@@ -671,7 +670,7 @@ public class LinphonePreferencesActivity extends PreferenceActivity implements E
 
 	private void doOnFirstLaunch() {
 		manageCheckbox(R.get("string", "pref_echo_limiter_key"), !Hacks.hasBuiltInEchoCanceller(), true, false);
-		prefs().edit().putBoolean(LinphoneActivity.PREF_FIRST_LAUNCH, false).commit();
+		prefs().edit().putBoolean(ALModuleProxy.PREF_FIRST_LAUNCH, false).commit();
 	}
 
 	private void initializeMediaEncryptionPreferences() {
@@ -856,7 +855,7 @@ public class LinphonePreferencesActivity extends PreferenceActivity implements E
 				return;
 			}
 
-			LinphoneActivity.instance().showPreferenceErrorDialog(e.getMessage());
+//			LinphoneActivity.instance().showPreferenceErrorDialog(e.getMessage());
 		}
 	}
 

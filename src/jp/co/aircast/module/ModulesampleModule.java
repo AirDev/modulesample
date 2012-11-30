@@ -10,17 +10,12 @@ package jp.co.aircast.module;
 
 import org.appcelerator.kroll.KrollModule;
 import org.appcelerator.kroll.annotations.Kroll;
-
-import org.appcelerator.titanium.TiApplication;
 import org.appcelerator.kroll.common.Log;
 import org.appcelerator.kroll.common.TiConfig;
-import org.linphone.LinphoneManager;
-import org.linphone.LinphonePreferencesActivity;
-import org.linphone.core.LinphoneCall;
+import org.appcelerator.titanium.TiApplication;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.telephony.TelephonyManager;
 
 

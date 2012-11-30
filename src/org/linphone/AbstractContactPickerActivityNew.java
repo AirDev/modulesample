@@ -123,7 +123,7 @@ public abstract class AbstractContactPickerActivityNew extends Activity implemen
 		case 0:
 			String msg = String.format(getString(R.get("string", "no_phone_numbers")), contactName);
 			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-			((ContactPicked) getParent()).goToDialer();
+//			((ContactPicked) getParent()).goToDialer();
 			break;
 		case 1:
 			returnSelectedValues(phones.get(0), contactName.toString(), getPhotoUri(id));
@@ -159,7 +159,7 @@ public abstract class AbstractContactPickerActivityNew extends Activity implemen
 			finish();
 		}*/
 
-		((ContactPicked) getParent()).setAddressAndGoToDialer(number, name, photo);
+//		((ContactPicked) getParent()).setAddressAndGoToDialer(number, name, photo);
 	}
 
 	

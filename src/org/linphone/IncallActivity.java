@@ -41,7 +41,6 @@ import org.linphone.core.LinphoneCore.MediaEncryption;
 import org.linphone.core.LinphoneCoreException;
 import org.linphone.core.Log;
 import org.linphone.mediastream.Version;
-import org.linphone.ui.Numpad;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -278,43 +277,43 @@ public class IncallActivity extends AbstractCalleesActivity implements
 						 }
 					 });
 			return builder.create();
-		case numpadDialogId:
-			Numpad numpad = new Numpad(this, true);
-			return new AlertDialog.Builder(this).setView(numpad)
-			// .setIcon(R.drawable.logo_linphone_57x57)
-					// .setTitle("Send DTMFs")
-					 .setPositiveButton(R.get("string", "close_button_text"), new
-					 DialogInterface.OnClickListener() {
-						 public void onClick(DialogInterface dialog, int whichButton)
-							 {
-							 	dismissDialog(id);
-							 }
-						 })
-					.create();
+//		case numpadDialogId:
+//			Numpad numpad = new Numpad(this, true);
+//			return new AlertDialog.Builder(this).setView(numpad)
+//			// .setIcon(R.drawable.logo_linphone_57x57)
+//					// .setTitle("Send DTMFs")
+//					 .setPositiveButton(R.get("string", "close_button_text"), new
+//					 DialogInterface.OnClickListener() {
+//						 public void onClick(DialogInterface dialog, int whichButton)
+//							 {
+//							 	dismissDialog(id);
+//							 }
+//						 })
+//					.create();
 		default:
 			throw new IllegalArgumentException("unkown dialog id " + id);
 		}
 	}
 
-	private LinphoneCall mActivateCallOnReturnFromUriPicker;
-	private boolean mEnterConferenceOnReturnFromUriPicker;
-	private void openUriPicker(String pickerType, int requestCode) {
-		if (lc().soundResourcesLocked()) {
-			Toast.makeText(this, R.get("string", "not_ready_to_make_new_call"), Toast.LENGTH_LONG).show();
-			return;
-		}
-		mActivateCallOnReturnFromUriPicker = lc().getCurrentCall();
-		mEnterConferenceOnReturnFromUriPicker = lc().isInConference();
-		pauseCurrentCallOrLeaveConference();
-		Intent intent = new Intent().setClass(this, UriPickerActivity.class);
-		intent.putExtra(UriPickerActivity.EXTRA_PICKER_TYPE, pickerType);
-		startActivityForResult(intent, requestCode);
-		if (!lc().isMicMuted()) {
-			mUnMuteOnReturnFromUriPicker = true;
-			lc().muteMic(true);
-			((Checkable) findViewById(R.get("id", "toggleMuteMic"))).setChecked(true);
-		}
-	}
+//	private LinphoneCall mActivateCallOnReturnFromUriPicker;
+//	private boolean mEnterConferenceOnReturnFromUriPicker;
+//	private void openUriPicker(String pickerType, int requestCode) {
+//		if (lc().soundResourcesLocked()) {
+//			Toast.makeText(this, R.get("string", "not_ready_to_make_new_call"), Toast.LENGTH_LONG).show();
+//			return;
+//		}
+//		mActivateCallOnReturnFromUriPicker = lc().getCurrentCall();
+//		mEnterConferenceOnReturnFromUriPicker = lc().isInConference();
+//		pauseCurrentCallOrLeaveConference();
+//		Intent intent = new Intent().setClass(this, UriPickerActivity.class);
+//		intent.putExtra(UriPickerActivity.EXTRA_PICKER_TYPE, pickerType);
+//		startActivityForResult(intent, requestCode);
+//		if (!lc().isMicMuted()) {
+//			mUnMuteOnReturnFromUriPicker = true;
+//			lc().muteMic(true);
+//			((Checkable) findViewById(R.get("id", "toggleMuteMic"))).setChecked(true);
+//		}
+//	}
 
 	
 	@Override
@@ -423,12 +422,12 @@ public class IncallActivity extends AbstractCalleesActivity implements
 	private void prepareForTransferingExistingOrNewCall(final LinphoneCall call) {
 		// Include inconf calls
 		final List<LinphoneCall> existingCalls = LinphoneUtils.getLinphoneCalls(lc());
-		if (existingCalls.size() == 1) {
-			// Only possible choice is transfer to new call: doing it directly.
-			mCallToTransfer = call;
-			openUriPicker(UriPickerActivity.EXTRA_PICKER_TYPE_TRANSFER, transferCallId);
-			return;
-		}
+//		if (existingCalls.size() == 1) {
+//			// Only possible choice is transfer to new call: doing it directly.
+//			mCallToTransfer = call;
+////			openUriPicker(UriPickerActivity.EXTRA_PICKER_TYPE_TRANSFER, transferCallId);
+//			return;
+//		}
 		existingCalls.remove(call);
 		final List<String> numbers = new ArrayList<String>(existingCalls.size() + 1);
 		Resources r = getResources();
@@ -441,8 +440,8 @@ public class IncallActivity extends AbstractCalleesActivity implements
 			public void onClick(DialogInterface dialog, int which) {
 				if (which == numbers.size() -1) {
 					// Last one is transfer to new call
-					mCallToTransfer = call;
-					openUriPicker(UriPickerActivity.EXTRA_PICKER_TYPE_TRANSFER, transferCallId);
+//					mCallToTransfer = call;
+//					openUriPicker(UriPickerActivity.EXTRA_PICKER_TYPE_TRANSFER, transferCallId);
 				} else {
 					lc().transferCallToAnother(call, existingCalls.get(which));
 				}
@@ -467,13 +466,13 @@ public class IncallActivity extends AbstractCalleesActivity implements
 				Log.d("IncallActivity():Teminate!!!");
 				lc().terminateCall(call);
 			}
-			else if (id == R.get("id", "transfer_existing")) {
-				prepareForTransferingExistingOrNewCall(call);
-			}
-			else if (id == R.get("id", "transfer_new")) {
-				openUriPicker(UriPickerActivity.EXTRA_PICKER_TYPE_TRANSFER, transferCallId);
-				mCallToTransfer = call;	
-			}
+//			else if (id == R.get("id", "transfer_existing")) {
+//				prepareForTransferingExistingOrNewCall(call);
+//			}
+//			else if (id == R.get("id", "transfer_new")) {
+//				openUriPicker(UriPickerActivity.EXTRA_PICKER_TYPE_TRANSFER, transferCallId);
+//				mCallToTransfer = call;	
+//			}
 			else if (id == R.get("id", "addVideo")) {
 				if (!call.cameraEnabled() && call.getCurrentParamsCopy().getVideoEnabled()) {
 					// NoWebcam mode, we let it this way
@@ -569,42 +568,42 @@ public class IncallActivity extends AbstractCalleesActivity implements
 			setVisibility(v, R.get("id", "callee_status_paused"), statusPaused);
 			setVisibility(v, R.get("id", "callee_status_qos"), !statusPaused);
 
-			final OnLongClickListener showCallActionsLongListener = new OnLongClickListener() {
-				public boolean onLongClick(View v) {
-					if (lc().soundResourcesLocked()) {
-						return false;
-					}
-					View content = getLayoutInflater().inflate(R.get("layout", "conf_choices_dialog"), null);
-					Dialog dialog = new AlertDialog.Builder(IncallActivity.this).setView(content).create();
-					OnClickListener l = new CallActionListener(call, dialog);
-					enableView(content, R.get("id", "transfer_existing"), l, mAllowTransfers && getSpecificCalls().size() >=2);
-					enableView(content, R.get("id", "transfer_new"), l, mAllowTransfers);
-					boolean showMergeToConf = connectionEstablished && aConferenceIsPossible();
-					enableView(content, R.get("id", "merge_to_conference"), l, showMergeToConf);
-					enableView(content, R.get("id", "terminate_call"), l, true);
-
-					if (call.getCurrentParamsCopy().getMediaEncryption()==MediaEncryption.ZRTP) {
-						boolean authVerified = call.isAuthenticationTokenVerified();
-						String fmt = getString(authVerified ? R.get("string", "reset_sas_fmt") : R.get("string", "verify_sas_fmt"));
-						TextView token = (TextView) content.findViewById(R.get("id", "authentication_token"));
-						token.setText(String.format(fmt, call.getAuthenticationToken()));
-						enableView(content, R.get("id", "set_auth_token_not_verified"), l, authVerified);
-						enableView(content, R.get("id", "set_auth_token_verified"), l, !authVerified);
-						enableView(content, R.get("id", "encrypted"), l, true);
-					} else {
-						setVisibility(content, R.get("id", "encrypted"), false);
-					}
-
-					dialog.show();
-					return true;
-				}
-			};
-			v.setOnLongClickListener(showCallActionsLongListener);
+//			final OnLongClickListener showCallActionsLongListener = new OnLongClickListener() {
+//				public boolean onLongClick(View v) {
+//					if (lc().soundResourcesLocked()) {
+//						return false;
+//					}
+//					View content = getLayoutInflater().inflate(R.get("layout", "conf_choices_dialog"), null);
+//					Dialog dialog = new AlertDialog.Builder(IncallActivity.this).setView(content).create();
+//					OnClickListener l = new CallActionListener(call, dialog);
+//					enableView(content, R.get("id", "transfer_existing"), l, mAllowTransfers && getSpecificCalls().size() >=2);
+//					enableView(content, R.get("id", "transfer_new"), l, mAllowTransfers);
+//					boolean showMergeToConf = connectionEstablished && aConferenceIsPossible();
+//					enableView(content, R.get("id", "merge_to_conference"), l, showMergeToConf);
+//					enableView(content, R.get("id", "terminate_call"), l, true);
+//
+//					if (call.getCurrentParamsCopy().getMediaEncryption()==MediaEncryption.ZRTP) {
+//						boolean authVerified = call.isAuthenticationTokenVerified();
+//						String fmt = getString(authVerified ? R.get("string", "reset_sas_fmt") : R.get("string", "verify_sas_fmt"));
+//						TextView token = (TextView) content.findViewById(R.get("id", "authentication_token"));
+//						token.setText(String.format(fmt, call.getAuthenticationToken()));
+//						enableView(content, R.get("id", "set_auth_token_not_verified"), l, authVerified);
+//						enableView(content, R.get("id", "set_auth_token_verified"), l, !authVerified);
+//						enableView(content, R.get("id", "encrypted"), l, true);
+//					} else {
+//						setVisibility(content, R.get("id", "encrypted"), false);
+//					}
+//
+//					dialog.show();
+//					return true;
+//				}
+//			};
+//			v.setOnLongClickListener(showCallActionsLongListener);
 
 			OnClickListener showCallActionsSimpleListener = new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					showCallActionsLongListener.onLongClick(v);
+//					showCallActionsLongListener.onLongClick(v);
 				}
 			};
 
@@ -789,9 +788,9 @@ public class IncallActivity extends AbstractCalleesActivity implements
 		}
 
 		String uri = null;
-		if (data != null) {
-			uri = data.getStringExtra(UriPickerActivity.EXTRA_CALLEE_URI);
-		}
+//		if (data != null) {
+//			uri = data.getStringExtra(UriPickerActivity.EXTRA_CALLEE_URI);
+//		}
 		if (resultCode != RESULT_OK || TextUtils.isEmpty(uri)) {
 			mCallToTransfer = null;
 			eventuallyResumeConfOrCallOnPickerReturn(true);
@@ -823,10 +822,10 @@ public class IncallActivity extends AbstractCalleesActivity implements
 		case transferCallId:
 			lc().transferCall(mCallToTransfer, uri);
 			// don't re-enter conference if call to transfer from conference
-			boolean doResume = !mCallToTransfer.isInConference();
+//			boolean doResume = !mCallToTransfer.isInConference();
 			// don't resume call if it is the call to transfer
-			doResume &= mActivateCallOnReturnFromUriPicker != mCallToTransfer;
-			eventuallyResumeConfOrCallOnPickerReturn(doResume);
+//			doResume &= mActivateCallOnReturnFromUriPicker != mCallToTransfer;
+//			eventuallyResumeConfOrCallOnPickerReturn(doResume);
 			Toast.makeText(this, R.get("string", "transfer_started"), Toast.LENGTH_LONG).show();
 			break;
 		default:
@@ -835,15 +834,15 @@ public class IncallActivity extends AbstractCalleesActivity implements
 	}
 
 	private void eventuallyResumeConfOrCallOnPickerReturn(boolean doCallConfResuming) {
-		if (doCallConfResuming) {
-			if (mActivateCallOnReturnFromUriPicker != null) {
-				lc().resumeCall(mActivateCallOnReturnFromUriPicker);
-			} else if (mEnterConferenceOnReturnFromUriPicker) {
-				enterConferenceAndVirtualConfView(true);
-			}
-		}
-		mActivateCallOnReturnFromUriPicker = null;
-		mEnterConferenceOnReturnFromUriPicker = false;
+//		if (doCallConfResuming) {
+//			if (mActivateCallOnReturnFromUriPicker != null) {
+//				lc().resumeCall(mActivateCallOnReturnFromUriPicker);
+//			} else if (mEnterConferenceOnReturnFromUriPicker) {
+//				enterConferenceAndVirtualConfView(true);
+//			}
+//		}
+//		mActivateCallOnReturnFromUriPicker = null;
+//		mEnterConferenceOnReturnFromUriPicker = false;
 	}
 
 	@Override
