@@ -149,10 +149,10 @@ public class ALModuleProxy extends KrollProxy implements LinphoneOnCallStateChan
 		editor.putBoolean(context.getString(R.get("string", "pref_video_codec_mpeg4_key")), false);
 		editor.putBoolean(context.getString(R.get("string", "pref_video_codec_h264_key")), false);
 		//echo canceler
-//				boolean ec = false;
-//				editor.putBoolean(context.getString(R.get("string", "pref_echo_cancellation_key")), ec);
-//				boolean el = false;
-//				editor.putBoolean(context.getString(R.get("string", "pref_echo_limiter_key")), el);
+				boolean ec = false;
+				editor.putBoolean(context.getString(R.get("string", "pref_echo_cancellation_key")), ec);
+				boolean el = false;
+				editor.putBoolean(context.getString(R.get("string", "pref_echo_limiter_key")), el);
 		
 
 		editor.putBoolean(PREF_FIRST_LAUNCH, false);
