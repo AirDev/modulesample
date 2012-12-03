@@ -90,6 +90,8 @@ public class VideoCallActivity extends Activity implements
 	private boolean isTouchOk = false;
 
 	public void onCreate(Bundle savedInstanceState) {
+		Log.d("VideoCallActivity():onCreate");
+		
 		isTouchOk = false;
 		
 		super.onCreate(savedInstanceState);
@@ -392,6 +394,8 @@ public class VideoCallActivity extends Activity implements
 
 	@Override
 	protected void onResume() {
+		Log.d("VideoCallActivity():onResume");
+		
 		if (!LinphoneManager.getLc().isIncall())
 		{
 			Log.d("VideoCallActivity():onResume():finish");
