@@ -17,3 +17,4 @@ linphoneライブラリ変更点
 121121 ./submodules/linphone/mediastreamer2/src/msspeex.c L573, L578
 speexのデコード時音量下げる
 
+testx
