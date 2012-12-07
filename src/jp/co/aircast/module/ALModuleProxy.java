@@ -166,6 +166,7 @@ public class ALModuleProxy extends KrollProxy implements LinphoneOnCallStateChan
 
 		//121029suzuki 
 		editor.putBoolean(context.getString(R.get("string", "pref_transport_udp_key")), true);
+//		editor.putBoolean(context.getString(R.get("string", "pref_wifi_only_key")), false);
 		
 		editor.commit();
 		
@@ -255,9 +256,9 @@ public class ALModuleProxy extends KrollProxy implements LinphoneOnCallStateChan
 	@Kroll.method
 	public void setting()
 	{
-//		Intent intent = new Intent(Intent.ACTION_MAIN);
-//		intent.setClass(context, LinphonePreferencesActivity.class);
-//		currentActivity.startActivity(intent);
+		Intent intent = new Intent(Intent.ACTION_MAIN);
+		intent.setClass(context, LinphonePreferencesActivity.class);
+		currentActivity.startActivity(intent);
 	}
 	
 	static final int video_activity = 100;
@@ -294,23 +295,6 @@ public class ALModuleProxy extends KrollProxy implements LinphoneOnCallStateChan
 		}
 		else if(this.mode == ALModuleProxy._NOMAL)
 		{
-//			//121107 ringtone thread control
-//			if(state == State.OutgoingInit)
-//			{
-//				if(ringToneThread == null)
-//				{
-//					ringToneThread = new Thread(ringToneTask);
-//					ringToneThread.start();
-//				}
-//			}
-//			else if(state == State.Error ||
-//					state == State.CallEnd ||
-//					state == LinphoneCall.State.CallUpdatedByRemote ||
-//					state == State.StreamsRunning)
-//			{
-//				stopRingTone();
-//			}
-			
 			if (state==State.IncomingReceived) {
 	//			if (call.getCurrentParamsCopy().getVideoEnabled())
 				isOutgoing = false;
@@ -411,22 +395,32 @@ public class ALModuleProxy extends KrollProxy implements LinphoneOnCallStateChan
 	}
 	public static void startVideoActivity(final LinphoneCall call, int delay) {
 		if (VideoCallActivity.launched || call == null) {
+			Log.d("ALModule", "not start VideoActivity");
 			return;
 		}
 		
 		mHandler.postDelayed(new Runnable() {
 			public void run() {
 				if (VideoCallActivity.launched) return;
-				ALModuleProxy.getInstance().startOrientationSensor();
+				Log.d("ALModule", "start VideoActivity");
+				
+//				ALModuleProxy.getInstance().startOrientationSensor();
 				LinphoneCall c = LinphoneManager.getLc().getCurrentCall();
 				if(c != null) LinphoneManager.getInstance().enableCamera(c, true);
-				LinphoneManager.getInstance().enableCamera(call, true);
+				LinphoneManager lm = LinphoneManager.getInstance();
+				if(lm != null)
+					lm.enableCamera(call, true);
+
 				Intent intent = new Intent().setClass(context, VideoCallActivity.class);
-				currentActivity.startActivityForResult(intent, video_activity);
+			//	currentActivity.startActivityForResult(intent, video_activity);
+				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				context.startActivity(intent);
 				// Avoid two consecutive runs to enter the previous block
 				VideoCallActivity.launched = true;
 				}
 		}, delay);
+		//121205suzuki test
+//		}, 100);
 		LinphoneManager.getInstance().routeAudioToSpeaker();
 	}
 	public static synchronized void startIncallActivity(int deray) {
@@ -438,7 +432,9 @@ public class ALModuleProxy extends KrollProxy implements LinphoneOnCallStateChan
 			public void run() {
 				if (IncallActivity.active) return;
 				Intent intent = new Intent().setClass(context, IncallActivity.class);
-				currentActivity.startActivityForResult(intent, incall_activity);
+//				currentActivity.startActivityForResult(intent, incall_activity);
+				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				context.startActivity(intent);
 			}
 		}, deray);
 	}
@@ -718,5 +714,11 @@ public class ALModuleProxy extends KrollProxy implements LinphoneOnCallStateChan
 
 		lc.setSpeakerLim((int)f);
 	}
-
+	
+	public static void setContext(Context context)
+	{
+		if(ALModuleProxy.context != null) return;
+		
+		ALModuleProxy.context = context;
+	}
 }

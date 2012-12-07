@@ -233,7 +233,8 @@ public class IncomingCallActivity extends Activity implements LinphoneOnCallStat
 			{
 				Log.d("intent", "aa");
 				LinphoneManager.getInstance().enableCamera(mCall, isVideo);
-				Log.i("addVideo() = " + LinphoneManager.getInstance().addVideo());
+				boolean b = LinphoneManager.getInstance().addVideo();
+				Log.i("addVideo() = " + b);
 				ALModuleProxy.startVideoActivity(mCall, 0);
 				//LinphoneActivity.instance().startVideoActivity(mCall, 0);
 			}

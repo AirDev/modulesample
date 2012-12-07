@@ -217,7 +217,7 @@ public class VideoViewProxyPrototype extends TiViewProxyPrototype
 	protected int findPrototypeId(String s)
 	{
 		int id = 0;
-// #generated# Last update: 2012-12-03 16:10:36 JST
+// #generated# Last update: 2012-12-07 17:07:42 JST
         L0: { id = 0; String X = null; int c;
             L: switch (s.length()) {
             case 4: c=s.charAt(0);

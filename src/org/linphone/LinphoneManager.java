@@ -244,8 +244,8 @@ public final class LinphoneManager implements LinphoneCoreListener {
 		LinphoneCall currentCall = mLc.getCurrentCall();
 		if (currentCall != null && !Hacks.hasBuiltInEchoCanceller()) {
 			//121119suzuki change
-			currentCall.enableEchoCancellation(true);
-			currentCall.enableEchoLimiter(false);
+//			currentCall.enableEchoCancellation(true);
+//			currentCall.enableEchoLimiter(false);
 //			/*disable EC, it is not efficient enough on speaker mode due to bad quality of speakers and saturation*/  
 //			currentCall.enableEchoCancellation(false);
 //			/* instead we prefer the echo limiter */

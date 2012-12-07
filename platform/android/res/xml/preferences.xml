@@ -45,7 +45,7 @@
 
 	<PreferenceCategory android:title="@string/pref_preferences">
 		<CheckBoxPreference android:title="@string/pref_autostart"
-			android:key="@string/pref_autostart_key" android:defaultValue="false"></CheckBoxPreference>
+			android:key="@string/pref_autostart_key" android:defaultValue="true"></CheckBoxPreference>
 
 <!--
 		<CheckBoxPreference android:defaultValue="true"
@@ -73,7 +73,7 @@
 		 android:title="@string/pref_echo_canceller_calibration" />
 
 		 <PreferenceScreen android:title="@string/pref_codecs" android:key="@string/pref_codecs_key">
-			<CheckBoxPreference android:key="@string/pref_codec_speex16_key"
+		     <CheckBoxPreference android:key="@string/pref_codec_speex16_key"
 				android:title="@string/pref_codec_speex16"/>
 			<CheckBoxPreference android:key="@string/pref_codec_speex8_key"
 				android:title="@string/pref_codec_speex8"/>

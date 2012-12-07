@@ -502,10 +502,12 @@ public final class LinphoneService extends Service implements LinphoneServiceLis
 //	}
 	
 	protected void onIncomingReceived() {
-		android.util.Log.d("aaaa", "onIncomingReceived()");
+		android.util.Log.d("ALModule", "onIncomingReceived()");
 		
 		if(!IncomingCallActivity.isActive)
 		{
+			ALModuleProxy.setContext(this);
+			
 			IncomingCallActivity.isActive = true;
 			Intent intent = new Intent();
 			intent.setClass(this, IncomingCallActivity.class);
@@ -635,8 +637,9 @@ public final class LinphoneService extends Service implements LinphoneServiceLis
 	@Override
 	public void onTextReceived(LinphoneAddress from, String message) {
 //		Object[] obj = {from.toString(), message};
-		Log.d("Linphone2", from.toString());
-		Log.d("Linphone2", message);
+		Log.d("ALModule", "onTextReceived");
+		Log.d("ALModule", from.toString());
+		Log.d("ALModule", message);
 		
 		JSONObject json;
 		String type = null;

@@ -93,7 +93,10 @@ public class VideoCallActivity extends Activity implements
 		Log.d("VideoCallActivity():onCreate");
 		
 		isTouchOk = false;
-		
+
+		LinphoneManager.getLc().setVideoWindow(null);
+		androidVideoWindowImpl = null;
+
 		super.onCreate(savedInstanceState);
 		if (!LinphoneManager.isInstanciated()
 				|| LinphoneManager.getLc().getCallsNb() == 0) {
@@ -145,6 +148,7 @@ public class VideoCallActivity extends Activity implements
 
 					public void onVideoRenderingSurfaceReady(
 							AndroidVideoWindowImpl vw, SurfaceView surface) {
+						Log.d("VIDEO WINDOW REDY");
 						LinphoneManager.getLc().setVideoWindow(vw);
 						mVideoViewReady = surface;
 					}
@@ -157,6 +161,7 @@ public class VideoCallActivity extends Activity implements
 
 					public void onVideoPreviewSurfaceReady(
 							AndroidVideoWindowImpl vw, SurfaceView surface) {
+						Log.d("PREV VIDEO WINDOW REDY");
 						mVideoCaptureViewReady = surface;
 //						prevWindowEnable(videoCall.cameraEnabled());
 						LinphoneManager.getLc().setPreviewWindow(
@@ -165,6 +170,7 @@ public class VideoCallActivity extends Activity implements
 
 					public void onVideoPreviewSurfaceDestroyed(
 							AndroidVideoWindowImpl vw) {
+						Log.d("PREV VIDEO WINDOW DESTROY");
 						// Remove references kept in jni code and restart camera
 						LinphoneManager.getLc().setPreviewWindow(null);
 					}
@@ -441,7 +447,7 @@ public class VideoCallActivity extends Activity implements
 ////			Log.d("enable camera!!!!");
 //			videoCall.enableCamera(true);
 //		}
-		
+		Log.d("shareMyCamera() = " + LinphoneManager.getInstance().shareMyCamera());
 		if (videoCall != null && LinphoneManager.getInstance().shareMyCamera()) {
 //			videoCall.enableCamera(true);
 			updatePreview(videoCall.cameraEnabled());
@@ -492,6 +498,8 @@ public class VideoCallActivity extends Activity implements
 												// while you are rotating
 			androidVideoWindowImpl.release();
 		}
+		//121205suzuki test
+		LinphoneManager.getLc().setVideoWindow(null);
 		super.onDestroy();
 	}
 
